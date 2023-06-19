@@ -1,0 +1,25 @@
+<%- include('partials/header.ejs') %>
+<%- include('partials/navbar.ejs') %>
+
+<table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col">Número</th>
+        <th scope="col">Produto</th>
+        <th scope="col">Valor</th>
+        <th scope="col">Especificações</th>
+        <th scope="col">Link</th>
+      </tr>
+    </thead>
+    <tbody>
+    <% table.forEach(element => { %>
+      <tr>
+        <th scope="row"><%= element.n %></th>
+        <td><%= element.produto %></td>
+        <td><%= element.valor %></td>
+        <td><%= element.specs %></td>
+        <td><%= element.link %></td>
+      </tr>
+    <% }) %>
+
+<%- include('partials/footer.ejs') %>
