@@ -1,10 +1,9 @@
-require('dotenv').config()
 const express = require("express");
 const app = express();
 const bodyParser = require("body-parser");
-const axios = require("axios");
-const { GoogleSpreadsheet } = require('google-spreadsheet');
-const creds = require('./config/loveyoumyladysith.json');
+const Reader = require("./class/Reader");
+const Writer = require("./class/Writer");
+//const axios = require("axios");
 
 //View engine
 app.set('view engine', 'ejs');
@@ -12,22 +11,14 @@ app.set('view engine', 'ejs');
 //Static
 app.use(express.static('public'));
 
-async function getGoogleSpreadsheets(){
-
-    const doc = new GoogleSpreadsheet(process.env.SPREAD_ID) //Got this from google spreadsheet URI
-
-    await doc.useServiceAccountAuth(creds);
-    await doc.loadInfo()
-    console.log('### Lendo arquivo: ' + doc.title);
-
-    var sheet = doc.sheetsByTitle[process.env.SHEET_NAME];
-
-    return await sheet.getRows();
-}
+//OBJECTS
+const reader = new Reader();
+const writer = new Writer();
 
 //ROUTES
 app.get("/", async (req,res) => {
-    var table = await getGoogleSpreadsheets();
+    var table = await reader.getTable();
+    writer.setInformationInProduct(30, {nome: "Diego", mensagem: "Teste 123"});
     res.render("index", {table: table});
 });
 

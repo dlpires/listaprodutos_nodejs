@@ -1,7 +1,24 @@
 <%- include('partials/header.ejs') %>
 <%- include('partials/navbar.ejs') %>
-
-<table class="table table-striped">
+<br><br>
+<div class="container">
+    <div class="row justify-content-md-center">
+      <% table.forEach(element => { %>
+        <div class="col-md-auto mb-2">
+          <div class="card h-100" style="width: 18rem;">
+            <img class="card-img-top" src="<%= element.link_imagem %>" alt="Card image cap">
+            <div class="card-body">
+              <h5 class="card-title"><%= element.produto %></h5>
+              <p class="card-text"><%= element.specs %></p>
+              <a href="<%= element.link %>" target="_blank" class="btn btn-primary">Ver</a>
+              <a href="#" class="btn btn-secondary">Comprei para o casal</a>
+            </div>
+          </div>
+        </div><br>
+      <% }) %>
+    </div><br>
+</div>
+<!--<table class="table table-striped">
     <thead>
       <tr>
         <th scope="col">Número</th>
@@ -12,14 +29,13 @@
       </tr>
     </thead>
     <tbody>
-    <% table.forEach(element => { %>
       <tr>
-        <th scope="row"><%= element.n %></th>
-        <td><%= element.produto %></td>
-        <td><%= element.valor %></td>
-        <td><%= element.specs %></td>
-        <td><%= element.link %></td>
+        <th scope="row"><%= //element.n %></th>
+        <td><%= //element.produto %></td>
+        <td><%= //element.valor %></td>
+        <td><%= //element.specs %></td>
+        <td><%= //element.link %></td>
       </tr>
-    <% }) %>
+    -->
 
 <%- include('partials/footer.ejs') %>
