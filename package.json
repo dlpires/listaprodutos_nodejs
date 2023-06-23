@@ -1,8 +1,4 @@
 {
-  "scripts": {
-    "start": "node TZ=America/Sao_Paulo ./build/app.js",
-    "dev": "TZ=America/Sao_Paulo nodemon ./src/app.ts"
-  },
   "dependencies": {
     "axios": "^1.4.0",
     "dotenv": "^16.3.0",
