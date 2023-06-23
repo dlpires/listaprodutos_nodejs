@@ -14,6 +14,8 @@ class Connection{
         
             var sheet = doc.sheetsByTitle[process.env.SHEET_NAME];
         
+            //console.log(await sheet.getRows());
+
             return await sheet.getRows();
 
         } catch (error) {

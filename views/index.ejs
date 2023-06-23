@@ -3,20 +3,43 @@
 <br><br>
 <div class="container">
     <div class="row justify-content-md-center">
-      <% table.forEach(element => { %>
+      <% result.forEach(key => { %>
         <div class="col-md-auto mb-2">
           <div class="card h-100" style="width: 18rem;">
-            <img class="card-img-top" src="<%= element.link_imagem %>" alt="Card image cap">
+            <img class="card-img-top" src="<%= key.link_imagem %>" alt="Card image cap">
             <div class="card-body">
-              <h5 class="card-title"><%= element.produto %></h5>
-              <p class="card-text"><%= element.specs %></p>
-              <a href="<%= element.link %>" target="_blank" class="btn btn-primary">Ver</a>
+              <h5 class="card-title"><%= key.produto %></h5>
+              <p class="card-text"><%= key.specs %></p>
+              <a href="<%= key.link %>" target="_blank" class="btn btn-primary">Ver</a>
               <a href="#" class="btn btn-secondary">Comprei para o casal</a>
             </div>
           </div>
         </div><br>
       <% }) %>
     </div><br>
+
+    <nav aria-label="...">
+      <ul class="pagination pagination-lg justify-content-center">
+        <% if (page > 1) { %>
+          <li class="page-item">
+            <a class="page-link" href="/<%= parseInt(page)-1 %>">Anterior</a>
+          </li>
+          <li class="page-item"><a class="page-link" href="/<%= parseInt(page)-1 %>"><%= parseInt(page)-1 %></a></li>
+        <% } %>
+        <li class="page-item active">
+          <span class="page-link">
+            <%= page %>
+            <span class="sr-only">(current)</span>
+          </span>
+        </li>
+        <% if (page != Math.ceil(total / limit)) { %>
+          <li class="page-item"><a class="page-link" href="/<%= parseInt(page)+1 %>"><%= parseInt(page)+1 %></a></li>
+          <li class="page-item">
+            <a class="page-link" href="/<%= parseInt(page)+1 %>">Próximo</a>
+          </li>
+        <% } %>
+      </ul>
+    </nav>
 </div>
 <!--<table class="table table-striped">
     <thead>
