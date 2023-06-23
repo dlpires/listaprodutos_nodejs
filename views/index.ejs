@@ -9,7 +9,7 @@
             <img class="card-img-top" src="<%= key.link_imagem %>" alt="Card image cap">
             <div class="card-body">
               <h5 class="card-title"><%= key.produto %></h5>
-              <p class="card-text"><%= key.specs %></p>
+              <p class="card-text"><%= key.specs != ''? 'Escolha do casal: '.concat(key.specs): null %></p><!--ADDING TEXT THEN HAVE SPECS-->
               <a href="<%= key.link %>" target="_blank" class="btn btn-primary">Ver</a>
               <a href="#" class="btn btn-secondary">Comprei para o casal</a>
             </div>
