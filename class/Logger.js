@@ -3,12 +3,34 @@ const fs = require('fs/promises');
 class Logger{
 
     static async writeLog(text){
-        let currentDate = new Date().toJSON()//.slice(0, 10);
-        //console.log(currentDate);
-        let filename = currentDate+'.txt';
-        let filePath = "logs/"+filename;
 
-        //await fs.writeFile(filePath,text);
+        let filePath = "logs/" + this.getFilename();
+
+        //console.log(filePath,text);
+
+        await fs.appendFile(filePath,text+"\n");
+    }
+
+    static getFilename(){
+        let date_ob = new Date();
+
+        // current date
+        // adjust 0 before single digit date
+        let date = ("0" + date_ob.getDate()).slice(-2);
+
+        // current month
+        let month = ("0" + (date_ob.getMonth() + 1)).slice(-2);
+
+        // current year
+        let year = date_ob.getFullYear();
+
+        // current hours
+        let hours = date_ob.getHours();
+
+        // current minutes
+        let minutes = date_ob.getMinutes();
+
+        return date + "-" + month + "-" + year + ".txt";
     }
 }
 

@@ -3,7 +3,7 @@
 <br><br>
 <div class="container">
     <div class="row justify-content-md-center">
-      <% result.forEach(key => { %>
+      <% result.forEach((key, index) => { %>
         <div class="col-md-auto mb-2">
           <div class="card h-100" style="width: 18rem;">
             <img class="card-img-top" src="<%= key.link_imagem %>" alt="Card image cap">
@@ -11,7 +11,7 @@
               <h5 class="card-title"><%= key.produto %></h5>
               <p class="card-text"><%= key.specs != ''? 'Escolha do casal: '.concat(key.specs): null %></p><!--ADDING TEXT THEN HAVE SPECS-->
               <a href="<%= key.link %>" target="_blank" class="btn btn-primary">Ver</a>
-              <a href="#" class="btn btn-secondary">Comprei para o casal</a>
+              <button data-numero="<%= key.n %>" type="button" class="btn btn-secondary" data-toggle="modal" data-target="#modalComprei">Comprei para o casal!</button>
             </div>
           </div>
         </div><br>
@@ -61,4 +61,5 @@
       </tr>
     -->
 
+<%- include('modals/modals.ejs') %>
 <%- include('partials/footer.ejs') %>

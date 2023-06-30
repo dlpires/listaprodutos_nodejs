@@ -19,7 +19,7 @@ class Connection{
             return await sheet.getRows();
 
         } catch (error) {
-            Logger.writeLog("Error:", error);
+            Logger.writeLog("Error:" + error);
             return undefined;
         }
     }

@@ -14,7 +14,7 @@ class Reader{
         try {
             return await Connection.getConnection();
         } catch (error) {
-            Logger.writeLog("Error:", error);
+            Logger.writeLog("Error:" + error);
             return undefined;
         }
     }
@@ -24,6 +24,7 @@ class Reader{
 
         this.table.forEach(elem => {
             this.convertedTable[elem.n] = {
+                n: elem.n,
                 produto: elem.produto,
                 specs: elem.specs,
                 link: elem.link,
