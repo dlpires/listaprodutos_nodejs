@@ -8,6 +8,10 @@ const Writer = require("./class/Writer");
 //View engine
 app.set('view engine', 'ejs');
 
+//BODYPARSER - TO RECEIVE FORM DATA
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+
 //Static
 app.use(express.static('public'));
 
@@ -21,22 +25,44 @@ const limit = 9;
 
 //ROUTES
 app.get("/", async (req,res) => {
-    var table = await reader.convertToJSON();
-    const startIndex = (page - 1) * limit;
-    const endIndex = page * limit;
+    //CLEAN VARIABLES
+    var table = '';
+    var startIndex = 0;
+    var endIndex = 0;
     
-    const result = Object.values(table).slice(startIndex, endIndex);
-    //writer.setInformationInProduct(30, {nome: "Diego", mensagem: "Teste 123"});
+    var table = await reader.convertToJSON();
+    var startIndex = (page - 1) * limit;
+    var endIndex = page * limit;
+
+    var result = Object.values(table).slice(startIndex, endIndex);
+
+    //console.log(Object.keys(table).length);
+
     res.render("index", {result: result, page: page, limit: limit, total: Object.keys(table).length});
 });
 
 app.get("/:page", async (req,res) => {
     page = req.params.page;
-
-    //writer.setInformationInProduct(30, {nome: "Diego", mensagem: "Teste 123"});
     res.redirect("/");
 });
 
+//SAVE MESSAGE
+app.post("/comprei/mensagem", async (req,res) => {
+    var id = parseInt(req.body.numeroComprei);
+
+    var data = {
+        nome: req.body.nomeComprei,
+        mensagem: req.body.mensagemComprei
+    };
+
+    //WRITE IN SPREADSHEET
+    writer.setInformationInProduct(id, data);
+
+    res.status(200);
+    res.redirect("/")
+});
+
+//SERVER LISTENING
 app.listen(process.env.PORT || 8000, () => {
     console.log("App rodando!");
 });

@@ -28,7 +28,8 @@ class Reader{
                 produto: elem.produto,
                 specs: elem.specs,
                 link: elem.link,
-                link_imagem: elem.link_imagem
+                link_imagem: elem.link_imagem,
+                nome: elem.nome
             };
         });
 

@@ -3,15 +3,39 @@
 <br><br>
 <div class="container">
     <div class="row justify-content-md-center">
-      <% result.forEach((key, index) => { %>
+      <% result.forEach((key) => { %>
         <div class="col-md-auto mb-2">
           <div class="card h-100" style="width: 18rem;">
             <img class="card-img-top" src="<%= key.link_imagem %>" alt="Card image cap">
             <div class="card-body">
               <h5 class="card-title"><%= key.produto %></h5>
-              <p class="card-text"><%= key.specs != ''? 'Escolha do casal: '.concat(key.specs): null %></p><!--ADDING TEXT THEN HAVE SPECS-->
-              <a href="<%= key.link %>" target="_blank" class="btn btn-primary">Ver</a>
-              <button data-numero="<%= key.n %>" type="button" class="btn btn-secondary" data-toggle="modal" data-target="#modalComprei">Comprei para o casal!</button>
+              <p class="card-text"><%= key.nome != '' ?
+                                      'JÁ CONSEGUIMOS! :)' : key.specs != '' ?
+                                      'Escolha do casal: '.concat(key.specs): null %></p><!--ADDING TEXT THEN HAVE SPECS -->
+              <a href="<%= key.link %>" target="_blank" class="btn btn-primary">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye-fill" viewBox="0 0 16 16">
+                  <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z"/>
+                  <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z"/>
+                </svg>
+                Ver
+              </a>
+              <% if (key.nome != '') { %>
+                <button data-numero="<%= key.n %>" type="button" class="botaoComprei btn btn-danger" data-toggle="modal" data-target="#modalComprei" disabled>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chat-left-heart" viewBox="0 0 16 16">
+                    <path d="M14 1a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H4.414A2 2 0 0 0 3 11.586l-2 2V2a1 1 0 0 1 1-1h12ZM2 0a2 2 0 0 0-2 2v12.793a.5.5 0 0 0 .854.353l2.853-2.853A1 1 0 0 1 4.414 12H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2Z"/>
+                    <path d="M8 3.993c1.664-1.711 5.825 1.283 0 5.132-5.825-3.85-1.664-6.843 0-5.132Z"/>
+                  </svg>
+                  COMPRADO!!
+                </button>
+              <% } else { %>
+                <button data-numero="<%= key.n %>" type="button" class="botaoComprei btn btn-danger" data-toggle="modal" data-target="#modalComprei">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chat-left-heart" viewBox="0 0 16 16">
+                    <path d="M14 1a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H4.414A2 2 0 0 0 3 11.586l-2 2V2a1 1 0 0 1 1-1h12ZM2 0a2 2 0 0 0-2 2v12.793a.5.5 0 0 0 .854.353l2.853-2.853A1 1 0 0 1 4.414 12H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2Z"/>
+                    <path d="M8 3.993c1.664-1.711 5.825 1.283 0 5.132-5.825-3.85-1.664-6.843 0-5.132Z"/>
+                  </svg>
+                  Vou comprar!!
+                </button>
+              <% } %>
             </div>
           </div>
         </div><br>

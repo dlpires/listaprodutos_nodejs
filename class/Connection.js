@@ -10,7 +10,7 @@ class Connection{
     
             await doc.useServiceAccountAuth(creds);
             await doc.loadInfo()
-            Logger.writeLog('### Lendo arquivo: ' + doc.title);
+            //Logger.writeLog('### Lendo arquivo: ' + doc.title);
         
             var sheet = doc.sheetsByTitle[process.env.SHEET_NAME];
         
