@@ -1,11 +1,13 @@
 <%- include('partials/header.ejs') %>
 <%- include('partials/navbar.ejs') %>
-<br><br>
+<br>
+<%- include('partials/pagination.ejs') %>
+<br>
 <div class="container">
-    <div class="row justify-content-md-center">
+    <div class="row justify-content-center">
       <% result.forEach((key) => { %>
         <div class="col-md-auto mb-2">
-          <div class="card h-100" style="width: 18rem;">
+          <div class="card mx-auto h-100" style="width: 18rem;">
             <img class="card-img-top" src="<%= key.link_imagem %>" alt="Card image cap">
             <div class="card-body">
               <h5 class="card-title"><%= key.produto %></h5>
@@ -42,29 +44,8 @@
       <% }) %>
     </div><br>
 
-    <nav aria-label="...">
-      <ul class="pagination pagination-lg justify-content-center">
-        <% if (page > 1) { %>
-          <li class="page-item">
-            <a class="page-link" href="/<%= parseInt(page)-1 %>">Anterior</a>
-          </li>
-          <li class="page-item"><a class="page-link" href="/<%= parseInt(page)-1 %>"><%= parseInt(page)-1 %></a></li>
-        <% } %>
-        <li class="page-item active">
-          <span class="page-link">
-            <%= page %>
-            <span class="sr-only">(current)</span>
-          </span>
-        </li>
-        <% if (page != Math.ceil(total / limit)) { %>
-          <li class="page-item"><a class="page-link" href="/<%= parseInt(page)+1 %>"><%= parseInt(page)+1 %></a></li>
-          <li class="page-item">
-            <a class="page-link" href="/<%= parseInt(page)+1 %>">Próximo</a>
-          </li>
-        <% } %>
-      </ul>
-    </nav>
-</div>
+<%- include('partials/pagination.ejs') %>
+    
 <!--<table class="table table-striped">
     <thead>
       <tr>

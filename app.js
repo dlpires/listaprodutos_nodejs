@@ -24,7 +24,7 @@ var page = 1;
 const limit = 9;
 
 //ROUTES
-app.get("/", async (req,res) => {
+/*app.get("/", async (req,res) => {
     //CLEAN VARIABLES
     var table = '';
     var startIndex = 0;
@@ -39,6 +39,30 @@ app.get("/", async (req,res) => {
     //console.log(Object.keys(table).length);
 
     res.render("index", {result: result, page: page, limit: limit, total: Object.keys(table).length});
+});*/
+
+app.get('/', (req, res, next) => {
+    setTimeout(async () => {
+      try {
+        var table = await reader.convertToJSON();
+        var startIndex = (page - 1) * limit;
+        var endIndex = page * limit;
+
+        var result = Object.values(table).slice(startIndex, endIndex);
+
+        //console.log(Object.keys(table).length);
+
+        res.render("index", {result: result, page: page, limit: limit, total: Object.keys(table).length});
+      } catch (err) {
+        console.log(err);
+        Logger.writeLog("Error:" + err);
+        next(err)
+      }
+    }, 300);
+});
+
+app.get('/convite', (req, res) => {
+    res.render("convite");
 });
 
 app.get("/:page", async (req,res) => {
