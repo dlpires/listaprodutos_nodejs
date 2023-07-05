@@ -1,0 +1,14 @@
+body {
+    background-image: url('/img/background.png');
+    opacity: 0.85;
+}
+.navbar-brand, .nav-link {
+    font-family: 'Brush Script MT', cursive;
+    font-size: x-large;
+}
+.nav-item {
+    padding: 10% 0% 10% 10%;
+}
+.navbar {
+    background-color: #0ABAB5;
+}
