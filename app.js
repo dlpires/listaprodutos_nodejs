@@ -3,6 +3,7 @@ const app = express();
 const bodyParser = require("body-parser");
 const Reader = require("./class/Reader");
 const Writer = require("./class/Writer");
+const { version } = require("./package.json");
 //const axios = require("axios");
 
 //View engine
@@ -88,5 +89,8 @@ app.post("/comprei/mensagem", async (req,res) => {
 
 //SERVER LISTENING
 app.listen(process.env.PORT || 8000, () => {
-    console.log("App rodando!");
+    console.log("################################");
+    console.log("## ListaCasamento - Started! ###");
+    console.log('##          v'+version+'           ###');
+    console.log("################################");
 });
