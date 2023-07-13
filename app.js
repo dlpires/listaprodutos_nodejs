@@ -63,7 +63,15 @@ app.get('/', (req, res, next) => {
 });
 
 app.get('/convite', (req, res) => {
-    res.render("convite");
+    setTimeout(() => {
+        res.render("convite");
+    }, 1000);
+});
+
+app.get('/obrigado', (req, res) => {
+    setTimeout(() => {
+        res.render("thanks");
+    }, 1000);
 });
 
 app.get("/:page", async (req,res) => {
@@ -84,7 +92,7 @@ app.post("/comprei/mensagem", async (req,res) => {
     writer.setInformationInProduct(id, data);
 
     res.status(200);
-    res.redirect("/")
+    res.redirect("/obrigado");
 });
 
 //SERVER LISTENING

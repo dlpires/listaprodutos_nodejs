@@ -2,7 +2,7 @@ body {
     background-image: url('/img/background.png');
     opacity: 0.85;
 }
-.navbar-brand, .nav-link {
+.navbar-brand, .nav-link, blockquote, h1, h3 {
     font-family: 'Brush Script MT', cursive;
     font-size: x-large;
 }
