@@ -2,6 +2,7 @@ version: '3'
 
 services:
   app:
+    #CHANGE TO YOUR DOCKER IMAGE
     image: dlpires300/listaprodutos_nodejs:latest
     ports:
       - 80:8000
