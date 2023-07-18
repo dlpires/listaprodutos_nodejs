@@ -1,7 +1,10 @@
 require('dotenv').config()
 const { GoogleSpreadsheet } = require('google-spreadsheet');
-const creds = require('../config/loveyoumyladysith.json');
 const Logger = require('./Logger');
+
+//INSERT YOUR CREDENTIALS
+//REFERENCE --> https://www.npmjs.com/package/google-spreadsheet
+const creds = require('../config/loveyoumyladysith.json');
 
 class Connection{
     static async getConnection(){
