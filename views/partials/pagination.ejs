@@ -2,9 +2,9 @@
     <ul class="pagination justify-content-center">
       <% if (page > 1) { %>
         <li class="page-item">
-          <a class="page-link" href="/<%= parseInt(page)-1 %>">Anterior</a>
+          <a class="page-link" href="/list/<%= parseInt(page)-1 %>">Anterior</a>
         </li>
-        <li class="page-item"><a class="page-link" href="/<%= parseInt(page)-1 %>"><%= parseInt(page)-1 %></a></li>
+        <li class="page-item"><a class="page-link" href="/list/<%= parseInt(page)-1 %>"><%= parseInt(page)-1 %></a></li>
       <% } %>
       <li class="page-item active">
         <span class="page-link">
@@ -13,9 +13,9 @@
         </span>
       </li>
       <% if (page != Math.ceil(total / limit)) { %>
-        <li class="page-item"><a class="page-link" href="/<%= parseInt(page)+1 %>"><%= parseInt(page)+1 %></a></li>
+        <li class="page-item"><a class="page-link" href="/list/<%= parseInt(page)+1 %>"><%= parseInt(page)+1 %></a></li>
         <li class="page-item">
-          <a class="page-link" href="/<%= parseInt(page)+1 %>">Próximo</a>
+          <a class="page-link" href="/list/<%= parseInt(page)+1 %>">Próximo</a>
         </li>
       <% } %>
     </ul>

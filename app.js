@@ -16,50 +16,18 @@ app.use(bodyParser.urlencoded({ extended: false }));
 //Static
 app.use(express.static('public'));
 
+//PAGINATION - SET VALUES
+var page = 1;
+const limit = 9;
+
 //OBJECTS
 const reader = new Reader();
 const writer = new Writer();
 
-//PAGINATION
-var page = 1;
-const limit = 9;
-
 //ROUTES
-/*app.get("/", async (req,res) => {
-    //CLEAN VARIABLES
-    var table = '';
-    var startIndex = 0;
-    var endIndex = 0;
-    
-    var table = await reader.convertToJSON();
-    var startIndex = (page - 1) * limit;
-    var endIndex = page * limit;
 
-    var result = Object.values(table).slice(startIndex, endIndex);
-
-    //console.log(Object.keys(table).length);
-
-    res.render("index", {result: result, page: page, limit: limit, total: Object.keys(table).length});
-});*/
-
-app.get('/', (req, res, next) => {
-    setTimeout(async () => {
-      try {
-        var table = await reader.convertToJSON();
-        var startIndex = (page - 1) * limit;
-        var endIndex = page * limit;
-
-        var result = Object.values(table).slice(startIndex, endIndex);
-
-        //console.log(Object.keys(table).length);
-
-        res.render("index", {result: result, page: page, limit: limit, total: Object.keys(table).length});
-      } catch (err) {
-        console.log(err);
-        Logger.writeLog("Error:" + err);
-        next(err)
-      }
-    }, 300);
+app.get('/', (req, res) => {
+    res.redirect("/list/1");
 });
 
 app.get('/convite', (req, res) => {
@@ -74,9 +42,26 @@ app.get('/obrigado', (req, res) => {
     }, 1000);
 });
 
-app.get("/:page", async (req,res) => {
+app.get("/list/:page", async (req,res,next) => {
     page = req.params.page;
-    res.redirect("/");
+
+    setTimeout(async () => {
+        try {
+          var table = await reader.convertToJSON();
+          var startIndex = (page - 1) * limit;
+          var endIndex = page * limit;
+  
+          var result = Object.values(table).slice(startIndex, endIndex);
+  
+          //console.log(Object.keys(table).length);
+  
+          res.render("index", {result: result, page: page, limit: limit, total: Object.keys(table).length});
+        } catch (err) {
+          console.log(err);
+          Logger.writeLog("Error:" + err);
+          next(err)
+        }
+      }, 300);
 });
 
 //SAVE MESSAGE
