@@ -33,6 +33,7 @@ app.get('/', (req, res) => {
 app.get('/convite', (req, res) => {
     setTimeout(() => {
         res.render("convite");
+        //res.redirect("https://bit.ly/casamentoalinediego");
     }, 1000);
 });
 
