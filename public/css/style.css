@@ -1,7 +1,8 @@
 body {
-    background-image: url('/img/background.jpg');
+    background-image: linear-gradient(rgba(255,255,255,0.7), rgba(255,255,255,0.7)), url('/img/background.png');
     opacity: 0.85;
 }
+
 .navbar-brand, .nav-link, blockquote, h1, h3 {
     font-family: 'Brush Script MT', cursive;
     font-size: x-large;
@@ -9,6 +10,17 @@ body {
 .nav-item {
     padding: 10% 0% 10% 10%;
 }
+
 .navbar {
     background-color: #0ABAB5;
+}
+
+.endereco {
+    font-size: 150%;
+    color: #0ABAB5;
+}
+
+.textofooter {
+    color: #0ABAB5;
+    font-size: 100%;
 }
