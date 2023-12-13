@@ -1,6 +1,7 @@
 const express = require("express");
 const app = express();
 const bodyParser = require("body-parser");
+var lodash = require("lodash");
 const Reader = require("./class/Reader");
 const Writer = require("./class/Writer");
 const { version } = require("./package.json");
@@ -52,12 +53,14 @@ app.get("/list/:page", async (req,res,next) => {
           var table = await reader.convertToJSON();
 
           //FILTERING
-          
+          var tableFiltered = lodash.filter(table, (res) => { return res.produto.includes(text) });
+          console.log(tableFiltered.lenght);
 
           var startIndex = (page - 1) * limit;
           var endIndex = page * limit;
-  
-          var result = Object.values(table).slice(startIndex, endIndex);
+          
+          //IF TABLEFILTERED HAVE A LIST FILTER, INCLUDE, ELSE INCLUDE ALL ROWS
+          var result = Object.values(tableFiltered.length > 0 ? tableFiltered : table).slice(startIndex, endIndex);
   
           //console.log(Object.keys(table).length);
   
