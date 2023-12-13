@@ -4,7 +4,7 @@ const bodyParser = require("body-parser");
 const Reader = require("./class/Reader");
 const Writer = require("./class/Writer");
 const { version } = require("./package.json");
-//const axios = require("axios");
+const Logger = require("./class/Logger");
 
 //View engine
 app.set('view engine', 'ejs');
@@ -45,10 +45,15 @@ app.get('/obrigado', (req, res) => {
 
 app.get("/list/:page", async (req,res,next) => {
     page = req.params.page;
+    var text = req.query.search;
 
     setTimeout(async () => {
         try {
           var table = await reader.convertToJSON();
+
+          //FILTERING
+          
+
           var startIndex = (page - 1) * limit;
           var endIndex = page * limit;
   
@@ -57,10 +62,22 @@ app.get("/list/:page", async (req,res,next) => {
           //console.log(Object.keys(table).length);
   
           res.render("index", {result: result, page: page, limit: limit, total: Object.keys(table).length});
+        } catch (TypeError) {
+            Logger.writeLog("Error:" + TypeError);
+            next(TypeError);
+        }
+
+      }, 300);
+});
+
+app.post("/list/filter", async (req,res) => {
+    const text = req.body.search_filter_text;
+
+    setTimeout(async () => {
+        try {
+          res.redirect("/list/1?search="+text);
         } catch (err) {
-          console.log(err);
           Logger.writeLog("Error:" + err);
-          next(err)
         }
       }, 300);
 });

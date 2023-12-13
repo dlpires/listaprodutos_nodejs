@@ -5,6 +5,29 @@
 <br>
 <div class="container">
     <div class="row justify-content-center">
+      <div class="col-md-6 col-sm-2 mb-2">
+          <form action="/list/filter" method="POST" id="search_filter">
+            <input type="text" id="search_filter_text" name="search_filter_text" class="form-control form-control-lg" placeholder="Digite e filtre a lista ;) ...">
+            <br>
+            <div class="text-center">
+              <button type="submit" class="btn btn-primary btn-lg">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-filter">
+                  <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon>
+                </svg>
+                Filtrar
+              </button>
+              <a type="button" href="" class="btn btn-danger btn-lg">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x-octagon">
+                  <polygon points="7.86 2 16.14 2 22 7.86 22 16.14 16.14 22 7.86 22 2 16.14 2 7.86 7.86 2"></polygon><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line>
+                </svg>
+                Limpar Filtro
+              </a>
+            </div>
+          </form>
+      </div>
+    </div>
+    <br>
+    <div class="row justify-content-center">
       <% result.forEach((key) => { %>
         <div class="col-md-auto mb-2">
           <div class="card mx-auto h-100" style="width: 18rem;">

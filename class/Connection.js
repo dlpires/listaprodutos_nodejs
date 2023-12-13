@@ -1,5 +1,6 @@
 require('dotenv').config()
 const { GoogleSpreadsheet } = require('google-spreadsheet');
+const { JWT } = require('google-auth-library');
 const Logger = require('./Logger');
 
 //INSERT YOUR CREDENTIALS
@@ -9,9 +10,15 @@ const creds = require('../config/loveyoumyladysith.json');
 class Connection{
     static async getConnection(){
         try {
-            const doc = new GoogleSpreadsheet(process.env.SPREAD_ID) //Got this from google spreadsheet URI
+            const serviceAccountAuth = new JWT({
+                email: creds.client_email,
+                key: creds.private_key,
+                scopes: ['https://www.googleapis.com/auth/spreadsheets']
+            });
+            const doc = new GoogleSpreadsheet(process.env.SPREAD_ID, serviceAccountAuth) //Got this from google spreadsheet URI
     
-            await doc.useServiceAccountAuth(creds);
+            //await doc.useServiceAccountAuth(creds);
+            
             await doc.loadInfo()
             //Logger.writeLog('### Lendo arquivo: ' + doc.title);
         

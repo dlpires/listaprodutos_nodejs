@@ -20,20 +20,25 @@ class Reader{
     }
 
     async convertToJSON(){
-        this.table = await this.getTable();
+        try {
+            this.table = await this.getTable();
 
-        this.table.forEach(elem => {
-            this.convertedTable[elem.n] = {
-                n: elem.n,
-                produto: elem.produto,
-                specs: elem.specs,
-                link: elem.link,
-                link_imagem: elem.link_imagem,
-                nome: elem.nome
-            };
-        });
+            this.table.forEach(elem => {
+                this.convertedTable[elem.get('n')] = {
+                    n: elem.get('n'),
+                    produto: elem.get('produto'),
+                    specs: elem.get('specs'),
+                    link: elem.get('link'),
+                    link_imagem: elem.get('link_imagem'),
+                    nome: elem.get('nome')
+                };
+            });
 
-        return this.convertedTable;
+            return this.convertedTable;
+        } catch (error) {
+            Logger.writeLog("Error:" + error);
+            return undefined;
+        }
     }
 }
 
