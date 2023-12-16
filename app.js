@@ -22,7 +22,7 @@ var page = 1;
 const limit = 9;
 
 //FILTER VARIABLE
-var text = "";
+//var text = "";
 
 //OBJECTS
 const reader = new Reader();
@@ -34,8 +34,8 @@ app.get('/', (req, res) => {
     res.redirect("/list/1");
 });
 
-app.get('/list/clearFilter', (req, res) => {
-    text = "";
+app.get('/clearFilter', (req, res) => {
+    //text = "";
     res.redirect("/list/1");
 });
 
@@ -54,6 +54,7 @@ app.get('/obrigado', (req, res) => {
 
 app.get("/list/:page", async (req,res,next) => {
     page = req.params.page;
+    var text = req.query.search;
 
     setTimeout(async () => {
         try {
@@ -62,15 +63,16 @@ app.get("/list/:page", async (req,res,next) => {
           //FILTERING
           var tableFiltered = lodash.filter(table, (res) => { return res.produto.toLowerCase().includes(text) });
 
+          var total = Object.keys(tableFiltered).length == 0 ? Object.keys(table).length : Object.keys(tableFiltered).length;
           var startIndex = (page - 1) * limit;
           var endIndex = page * limit;
           
           //IF TABLEFILTERED HAVE A LIST FILTER, INCLUDE, ELSE INCLUDE ALL ROWS
           var result = Object.values(tableFiltered.length > 0 ? tableFiltered : table).slice(startIndex, endIndex);
   
-          //console.log(Object.keys(table).length);
-  
-          res.render("index", {result: result, page: page, limit: limit, total: Object.keys(tableFiltered).length});
+          //CLEAN VARIABLE
+          text = "";
+          res.render("index", {result: result, page: page, limit: limit, total: total});
         } catch (TypeError) {
             Logger.writeLog("Error:" + TypeError);
             next(TypeError);
@@ -79,12 +81,12 @@ app.get("/list/:page", async (req,res,next) => {
       }, 300);
 });
 
-app.post("/list/filter", async (req,res) => {
-    text = req.body.search_filter_text.toLowerCase();
+app.post("/filter", async (req,res) => {
+    const search = req.body.search_filter_text.toLowerCase();
 
     setTimeout(async () => {
         try {
-          res.redirect("/list/1");
+          res.redirect("/list/1?search="+search);
         } catch (err) {
           Logger.writeLog("Error:" + err);
         }
