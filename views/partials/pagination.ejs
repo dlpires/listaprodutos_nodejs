@@ -6,12 +6,14 @@
         </li>
         <li class="page-item"><a class="page-link" href="/list/<%= parseInt(page)-1 %>"><%= parseInt(page)-1 %></a></li>
       <% } %>
-      <li class="page-item active">
-        <span class="page-link">
-          <%= page %>
-          <span class="sr-only">(current)</span>
-        </span>
-      </li>
+      <% if (total > limit) { %>
+        <li class="page-item active">
+          <span class="page-link">
+            <%= page %>
+            <span class="sr-only">(current)</span>
+          </span>
+        </li>
+      <% } %>
       <% if (page != Math.ceil(total / limit)) { %>
         <li class="page-item"><a class="page-link" href="/list/<%= parseInt(page)+1 %>"><%= parseInt(page)+1 %></a></li>
         <li class="page-item">

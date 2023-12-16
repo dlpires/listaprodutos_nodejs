@@ -7,7 +7,7 @@
     <div class="row justify-content-center">
       <div class="col-md-6 col-sm-2 mb-2">
           <form action="/list/filter" method="POST" id="search_filter">
-            <input type="text" id="search_filter_text" name="search_filter_text" class="form-control form-control-lg" placeholder="Digite e filtre a lista ;) ...">
+            <input type="text" id="search_filter_text" name="search_filter_text" class="form-control form-control-lg" placeholder="Pesquise um presente! ;) ...">
             <br>
             <div class="text-center">
               <button type="submit" class="btn btn-primary btn-lg">
@@ -16,7 +16,7 @@
                 </svg>
                 Filtrar
               </button>
-              <a type="button" href="" class="btn btn-danger btn-lg">
+              <a type="button" href="/list/clearFilter" class="btn btn-danger btn-lg">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x-octagon">
                   <polygon points="7.86 2 16.14 2 22 7.86 22 16.14 16.14 22 7.86 22 2 16.14 2 7.86 7.86 2"></polygon><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line>
                 </svg>
@@ -31,7 +31,14 @@
       <% result.forEach((key) => { %>
         <div class="col-md-auto mb-2">
           <div class="card mx-auto h-100" style="width: 18rem;">
-            <img class="card-img-top" src="<%= key.link_imagem %>" data-toggle="modal" data-target="#imageModal<%= key.n %>" alt="Card image cap">
+            <% if (key.nome != '') { %>
+              <img class="card-img-top" src="<%= key.link_imagem %>" style="opacity: 0.2;" alt="Card image cap">
+              <div class="centered-received">
+                <h2>ADQUIRIDO!</h2>
+              </div>
+            <% } else { %>
+              <img class="card-img-top" src="<%= key.link_imagem %>" data-toggle="modal" data-target="#imageModal<%= key.n %>" alt="Card image cap">
+            <% } %>
             <!-- MODAL IMAGE -->
             <div class="modal fade" id="imageModal<%= key.n %>" tabindex="-1"
                 role="dialog" aria-labelledby="imageModalLabel"
@@ -70,14 +77,14 @@
               <p class="card-text"><%= key.nome != '' ?
                                       'JÁ CONSEGUIMOS! :)' : key.specs != '' ?
                                       'Escolha do casal: '.concat(key.specs): null %></p><!--ADDING TEXT THEN HAVE SPECS -->
-              <a href="<%= key.link %>" target="_blank" class="btn btn-primary">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye-fill" viewBox="0 0 16 16">
-                  <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z"/>
-                  <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z"/>
-                </svg>
-                Ver
-              </a>
               <% if (key.nome != '') { %>
+                <a href="<%= key.link %>" target="_blank" class="btn btn-primary disabled">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye-fill" viewBox="0 0 16 16">
+                    <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z"/>
+                    <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z"/>
+                  </svg>
+                  Ver
+                </a>
                 <button data-numero="<%= key.n %>" type="button" class="botaoComprei btn btn-danger" data-toggle="modal" data-target="#modalComprei" disabled>
                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chat-left-heart" viewBox="0 0 16 16">
                     <path d="M14 1a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H4.414A2 2 0 0 0 3 11.586l-2 2V2a1 1 0 0 1 1-1h12ZM2 0a2 2 0 0 0-2 2v12.793a.5.5 0 0 0 .854.353l2.853-2.853A1 1 0 0 1 4.414 12H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2Z"/>
@@ -86,6 +93,13 @@
                   COMPRADO!!
                 </button>
               <% } else { %>
+                <a href="<%= key.link %>" target="_blank" class="btn btn-primary">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye-fill" viewBox="0 0 16 16">
+                    <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z"/>
+                    <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z"/>
+                  </svg>
+                  Ver
+                </a>
                 <button data-numero="<%= key.n %>" type="button" class="botaoComprei btn btn-danger" data-toggle="modal" data-target="#modalComprei">
                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chat-left-heart" viewBox="0 0 16 16">
                     <path d="M14 1a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H4.414A2 2 0 0 0 3 11.586l-2 2V2a1 1 0 0 1 1-1h12ZM2 0a2 2 0 0 0-2 2v12.793a.5.5 0 0 0 .854.353l2.853-2.853A1 1 0 0 1 4.414 12H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2Z"/>

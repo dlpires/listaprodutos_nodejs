@@ -24,3 +24,12 @@ body {
     color: #0ABAB5;
     font-size: 100%;
 }
+
+.centered-received {
+    position: absolute;
+    top: 25%;
+    left: 16%;
+    transform: rotate(45deg);
+    font-family: sans-serif;
+    color: #0ABAB5;
+}

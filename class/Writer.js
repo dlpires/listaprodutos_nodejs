@@ -9,10 +9,10 @@ class Writer{
         try {
             Logger.writeLog("New message: "+ JSON.stringify(data));
             var table = await Connection.getConnection();
-            
             // set values
-            table[product_number-1].nome = data.nome;
-            table[product_number-1].mensagem = data.mensagem;
+            //table[product_number-1].set('nome') = data.nome;
+            //table[product_number-1].set('mensagem') = data.mensagem;
+            table[product_number-1].assign(data);
 
             await table[product_number-1].save(); // save updates on a row
 

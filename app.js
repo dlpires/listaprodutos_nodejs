@@ -21,6 +21,9 @@ app.use(express.static('public'));
 var page = 1;
 const limit = 9;
 
+//FILTER VARIABLE
+var text = "";
+
 //OBJECTS
 const reader = new Reader();
 const writer = new Writer();
@@ -28,6 +31,11 @@ const writer = new Writer();
 //ROUTES
 
 app.get('/', (req, res) => {
+    res.redirect("/list/1");
+});
+
+app.get('/list/clearFilter', (req, res) => {
+    text = "";
     res.redirect("/list/1");
 });
 
@@ -46,15 +54,13 @@ app.get('/obrigado', (req, res) => {
 
 app.get("/list/:page", async (req,res,next) => {
     page = req.params.page;
-    var text = req.query.search;
 
     setTimeout(async () => {
         try {
           var table = await reader.convertToJSON();
 
           //FILTERING
-          var tableFiltered = lodash.filter(table, (res) => { return res.produto.includes(text) });
-          console.log(tableFiltered.lenght);
+          var tableFiltered = lodash.filter(table, (res) => { return res.produto.toLowerCase().includes(text) });
 
           var startIndex = (page - 1) * limit;
           var endIndex = page * limit;
@@ -64,7 +70,7 @@ app.get("/list/:page", async (req,res,next) => {
   
           //console.log(Object.keys(table).length);
   
-          res.render("index", {result: result, page: page, limit: limit, total: Object.keys(table).length});
+          res.render("index", {result: result, page: page, limit: limit, total: Object.keys(tableFiltered).length});
         } catch (TypeError) {
             Logger.writeLog("Error:" + TypeError);
             next(TypeError);
@@ -74,11 +80,11 @@ app.get("/list/:page", async (req,res,next) => {
 });
 
 app.post("/list/filter", async (req,res) => {
-    const text = req.body.search_filter_text;
+    text = req.body.search_filter_text.toLowerCase();
 
     setTimeout(async () => {
         try {
-          res.redirect("/list/1?search="+text);
+          res.redirect("/list/1");
         } catch (err) {
           Logger.writeLog("Error:" + err);
         }
