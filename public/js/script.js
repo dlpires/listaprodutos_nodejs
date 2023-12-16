@@ -3,6 +3,6 @@ $('.botaoComprei').click(function() {
 });
 
 //SHOW LOADING
-$(".page-link, .nav-link, .navbar-brand, .enviar").click(function(){
+$(".page-link, .nav-link, .navbar-brand, .enviar, .filtrar, .limparFiltro").click(function(){
     $("#modalSpinner").modal();
 });
